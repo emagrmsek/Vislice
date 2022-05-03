@@ -7,4 +7,4 @@ Najtemačnejša otroška igra. Samo šala.
 To so vsi avtorji projekta:
 
 - Ema Grmšek,
-- drugih ni.
+- Mojster Miha
