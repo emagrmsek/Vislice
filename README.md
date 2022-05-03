@@ -1,3 +1,3 @@
 # Vislice
 
-Najtemačnejša otroška igra.
+Najtemačnejša otroška igra. Samo šala.
