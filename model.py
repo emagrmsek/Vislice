@@ -1,3 +1,6 @@
+import json
+
+DATOTEKA_S_STANJEM = "stanje.json"
 STEVILO_DOVOLJENIH_NAPAK = 9
 PRAVILNA_CRKA = '+'
 PONOVLJENA_CRKA = 'o'
@@ -35,7 +38,7 @@ class Igra:
             if crka in self.crke:
                 niz += crka
             else:
-                niz += '_'
+                niz += '_ '
         return niz
 
         #''.join([(crka if crka in self.crke else '_'] for crka in self.geslo))
@@ -74,6 +77,8 @@ def nova_igra():
     return Igra(geslo) #crke smo privzeli na zacetku da se zacne iz nule(neobvezn argument) zto nerabmo pist kukr argument
 
 class Vislice:
+    datoteka_s_stanjem = DATOTEKA_S_STANJEM
+
     def __init__(self):
         self.igre = {}
 
@@ -93,3 +98,16 @@ class Vislice:
         igra, stanje = self.igre[i]
         stanje = igra.ugibaj(crka)
         self.igre[i] = (igra, stanje)
+
+    def nalozi_igre_iz_datoteke(self):
+        with open(self.datoteka_s_stanjem) as d:
+            zapis = json.load(d)
+        for id_igre, ((geslo, crke), stanje) in zapis.items():
+            self.igre[id_igre] = (Igra(geslo, crke), stanje)
+
+    def zapisi_igre_v_datoteko(self):
+        zapis = {}
+        for id_igre, (igra, stanje) in self.igre.items():
+            zapis[id_igre] = ((igra.geslo, igra.crke), stanje)
+        with open(self.datoteka_s_stanjem, 'w') as d:
+            json.dump(zapis, d)
